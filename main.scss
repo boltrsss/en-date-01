@@ -1,0 +1,711 @@
+@import "./variable";
+@import "./mixins";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Tahoma, Circular;
+}
+
+// body {
+//   height: 100dvh;
+//   overflow: hidden;
+// }
+
+.landingPage-container {
+  transition: all 0.5s ease-in-out;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 10;
+  height: 100vh;
+
+  @include breakpoint("xmd") {
+    min-height: 100vh;
+    height: unset;
+
+    &::before {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      content: "";
+      height: 100%;
+
+      width: 100vw;
+      background: map-get($base, overlay);
+    }
+  }
+
+  .landingPage {
+    height: 100%;
+    background: map-get($base, primary);
+    padding: 30px 50px;
+    width: 100%;
+    @include flex(center, space-between, column);
+
+    @include breakpoint("xmd") {
+      // height: unset;
+      // height: 85vh;
+      @include flex(center, flex-start, column);
+
+      background: none;
+      padding: 8px;
+    }
+
+    &-top {
+      @include flex(center, space-between, row);
+      column-gap: 20px;
+      height: 90%;
+      width: 100%;
+
+      @include breakpoint("xmd") {
+        @include flex(flex-start, flex-start, column);
+        height: unset;
+      }
+
+      &-left {
+        // flex: 1;
+
+        width: 60%;
+        @include flex(flex-start, space-between, column);
+        row-gap: 16px;
+        height: 100%;
+
+        @include breakpoint("xxl") {
+          @include flex(flex-start, center, column);
+          height: 100%;
+
+          row-gap: 26px;
+        }
+
+        @include breakpoint("xmd") {
+          height: unset;
+          width: 100%;
+          top: 0;
+          left: 0;
+          z-index: 2;
+          padding: 16px;
+        }
+
+        &-important {
+          @include flex(flex-start, center, column);
+          row-gap: 10px;
+
+          &-title {
+            font-size: 55px;
+
+            font-weight: 700;
+            color: map-get($text, primary);
+
+            @include breakpoint("xxl") {
+              font-size: 70px;
+            }
+            @include breakpoint("xmd") {
+              font-size: 40px;
+              color: #e1d5d5;
+            }
+          }
+
+          &-paragraph {
+            p {
+              width: 65%;
+              font-size: 22px;
+              color: map-get($text, secondary);
+              font-weight: 800;
+              text-transform: uppercase;
+
+              @include breakpoint("xmd") {
+                width: 80%;
+                font-size: 24px;
+
+                color: #968888;
+              }
+            }
+          }
+        }
+
+        &-modal {
+          display: none;
+          margin: auto;
+          padding: 20px 25px;
+          width: 70%;
+
+          align-self: flex-start;
+
+          background: rgba(250, 234, 234, 0.5);
+
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          border-radius: 10px;
+
+          @include breakpoint("xmd") {
+            width: 90%;
+            margin: 0 auto;
+            background: rgba(250, 234, 234, 0.1);
+          }
+
+          &-content {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            flex-direction: column;
+            row-gap: 15px;
+            color: #272626;
+
+            @include breakpoint("xmd") {
+              color: #c1acac;
+
+              line-height: 1.5;
+            }
+
+            &-text {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 16px;
+              flex-direction: column;
+            }
+
+            &-loader {
+              width: 100%;
+              height: 18px;
+              border-radius: 8px;
+              background-color: white;
+              position: relative;
+              // overflow: hidden;
+
+              &-text {
+                font-size: 16px;
+                font-weight: 700;
+                text-align: center;
+                @include breakpoint("xxl") {
+                  font-size: 22px;
+                }
+              }
+
+              &-animating {
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: #7209b7;
+
+                // background-color: map-get($base, primary);
+                height: 18px;
+                animation-name: loadingAnimation;
+                animation-duration: 5s;
+                animation-timing-function: ease-in-out;
+                animation-delay: 0.5s;
+                width: 0%;
+              }
+            }
+          }
+
+          @media (min-width: 1301px) {
+            .multiStepLoading-modal {
+              width: 450px;
+            }
+          }
+
+          @keyframes loadingAnimation {
+            0% {
+              width: 0%;
+            }
+            10% {
+              width: 15%;
+            }
+            20% {
+              width: 15%;
+            }
+
+            35% {
+              width: 35%;
+            }
+
+            45% {
+              width: 35%;
+            }
+
+            50% {
+              width: 55%;
+            }
+
+            60% {
+              width: 55%;
+            }
+
+            70% {
+              width: 75%;
+            }
+
+            80% {
+              width: 75%;
+            }
+
+            95% {
+              width: 90%;
+            }
+            100% {
+              width: 100%;
+            }
+          }
+        }
+
+        // for final congratulation page
+        &-finalPage {
+          display: none;
+          justify-content: center;
+          align-items: flex-start;
+          flex-direction: column;
+          row-gap: 16px;
+
+          @include breakpoint("xmd") {
+            row-gap: 16px;
+          }
+
+          &-congratulations {
+            p {
+              font-size: 48px;
+              font-weight: 700;
+              color: map-get($text, primary);
+
+              @include breakpoint("xxl") {
+                font-size: 70px;
+              }
+
+              @include breakpoint("xmd") {
+                font-size: 36px;
+                color: #c1acac;
+              }
+            }
+          }
+
+          &-elligible {
+            div {
+              width: 100%;
+              font-size: 20px;
+              color: map-get($text, secondary);
+              font-weight: 800;
+              text-transform: uppercase;
+
+              @include breakpoint("xmd") {
+                font-size: 20px;
+                color: #c1acac;
+              }
+
+              @include breakpoint("xmd") {
+                font-size: 24px;
+                color: #c1acac;
+              }
+            }
+
+            p {
+              font-size: 20px;
+              font-weight: 800;
+              @include breakpoint("xmd") {
+                font-size: 18px;
+                color: white;
+              }
+            }
+          }
+
+          &-basedOn {
+            font-size: 18px;
+            @include breakpoint("xxl") {
+              font-size: 22px;
+            }
+
+            @include breakpoint("xmd") {
+              font-size: 16px;
+              color: map-get($base, primary);
+            }
+
+            span {
+              font-weight: 600;
+            }
+          }
+
+          &-approved {
+            font-weight: 600;
+            color: map-get($base, success);
+
+            font-size: 18px;
+
+            @include breakpoint("xxl") {
+              font-size: 26px;
+              color: #c1acac;
+            }
+
+            @include breakpoint("xmd") {
+              font-size: 18px;
+              color: #c1acac;
+            }
+          }
+
+          &-rules {
+            @include flex(flex-start, flex-start, column);
+            row-gap: 12px;
+            @include breakpoint("xmd") {
+              color: white;
+              row-gap: 10px;
+            }
+
+            @include breakpoint("xxl") {
+              row-gap: 18px;
+            }
+
+            &-title {
+              font-size: 18px;
+              font-weight: 600;
+              @include breakpoint("xmd") {
+                color: white;
+                font-size: 16px;
+              }
+              @include breakpoint("xxl") {
+                font-size: 24px;
+              }
+            }
+
+            &-list {
+              @include flex(flex-start, flex-start, column);
+              row-gap: 16px;
+
+              @include breakpoint("xmd") {
+                row-gap: 8px;
+              }
+              &-content {
+                font-size: 16px;
+                @include flex(flex-start, center, row);
+                column-gap: 20px;
+                @include breakpoint("xmd") {
+                  color: map-get($base, warning);
+                }
+
+                @include breakpoint("xxl") {
+                  font-size: 18px;
+                }
+
+                font-weight: 500;
+              }
+            }
+          }
+
+          &-failure {
+            color: #968888;
+            font-size: 16px;
+
+            @include breakpoint("xmd") {
+              font-size: 14px;
+            }
+            @include breakpoint("xxl") {
+              font-size: 20px;
+            }
+          }
+
+          &-aggreeButton {
+            align-self: center;
+
+            div {
+              padding: 4px 10px;
+              @include flex(center, space-between, row);
+              cursor: pointer;
+              column-gap: 10px;
+              font-size: 16px;
+              font-weight: 600;
+              background-color: map-get($base, success);
+              border-radius: map-get($radius, container);
+
+              @include breakpoint("xmd") {
+                font-size: 16px;
+              }
+
+              @include breakpoint("xxl") {
+                font-size: 22px;
+                padding: 6px 16px;
+              }
+
+              a {
+                color: white;
+                text-decoration: none;
+                @include flex(center, space-between, row);
+
+                p {
+                  color: white;
+                  text-decoration: none;
+                }
+              }
+            }
+          }
+        }
+
+        &-description {
+          color: map-get($text, base);
+          font-size: 18px;
+          width: 85%;
+          @include breakpoint("xmd") {
+            width: 100%;
+          }
+
+          p {
+            line-height: 1.5;
+            @include breakpoint("xmd") {
+              text-align: center;
+              width: 100%;
+            }
+
+            span {
+              font-weight: 600;
+              color: #412424;
+              @include breakpoint("xmd") {
+                color: white;
+              }
+            }
+          }
+
+          @include breakpoint("xxl") {
+            font-size: 22px;
+          }
+
+          @include breakpoint("xmd") {
+            color: #a6a3b5;
+            font-size: 16px;
+            align-self: center;
+          }
+        }
+
+        &-olderThan {
+          align-self: center;
+          // border: 2px solid red;
+
+          @include flex(flex-start, center, column);
+
+          @include breakpoint("xxl") {
+            row-gap: 10px;
+          }
+          row-gap: 6px;
+          &-title {
+            font-weight: 700;
+            font-size: 16px;
+            @include breakpoint("xmd") {
+              color: #c1acac;
+            }
+
+            @include breakpoint("xxl") {
+              font-size: 24px;
+            }
+          }
+
+          &-checkBoxList {
+            @include flex(flex-start, space-between, row);
+            width: 100%;
+
+            flex-wrap: wrap;
+            row-gap: 6px;
+
+            @include breakpoint("xxl") {
+              row-gap: 10px;
+            }
+
+            p {
+              color: $white;
+              font-size: 16px;
+              font-weight: 400;
+              margin-top: 10px;
+
+              @include breakpoint("xmd") {
+                font-size: 20px;
+              }
+              @include breakpoint("xxl") {
+                font-size: 24px;
+              }
+            }
+
+            div {
+              width: 45%;
+              @include flex(flex-start, flex-start, row);
+              column-gap: 20px;
+              cursor: pointer;
+
+              @include breakpoint("xxl") {
+                @include flex(center, flex-start, row);
+              }
+
+              input {
+                margin-top: 3px;
+              }
+
+              label {
+                font-size: 16px;
+                color: black;
+                position: relative;
+                font-weight: 500;
+                top: 0;
+                cursor: pointer;
+                @include breakpoint("xmd") {
+                  color: #c1acac;
+                }
+                @include breakpoint("xxl") {
+                  font-size: 22px;
+                }
+              }
+            }
+          }
+          &-choose {
+            display: none;
+            font-size: 18px;
+            @include breakpoint("xmd") {
+              color: #c1acac;
+              font-size: 16px;
+            }
+
+            @include breakpoint("xmd") {
+              color: #c1acac;
+              font-size: 20px;
+            }
+
+            font-weight: 500;
+          }
+
+          &-buttons {
+            align-self: space-between;
+            @include flex(center, center, row);
+            column-gap: 25px;
+            width: 100%;
+            color: white;
+
+            &-left {
+              padding: 4px 16px;
+              @include flex(center, space-between, row);
+              cursor: pointer;
+              column-gap: 10px;
+              font-size: 16px;
+              font-weight: 600;
+              background-color: map-get($base, success);
+              border-radius: map-get($radius, container);
+
+              @include breakpoint("xmd") {
+                font-size: 16px;
+              }
+
+              @include breakpoint("xxl") {
+                font-size: 22px;
+                padding: 6px 16px;
+              }
+            }
+
+            &-right {
+              @include flex(center, space-between, row);
+              background-color: map-get($base, warning);
+              padding: 4px 16px;
+              border-radius: map-get($radius, container);
+              column-gap: 10px;
+              font-size: 16px;
+              font-weight: 600;
+
+              cursor: pointer;
+
+              @include breakpoint("xmd") {
+                font-size: 16px;
+              }
+
+              @include breakpoint("xxl") {
+                font-size: 22px;
+                padding: 6px 16px;
+              }
+            }
+          }
+        }
+      }
+
+      // for right image slider section
+      &-right {
+        // flex: 0.6;
+
+        width: 30%;
+
+        @include breakpoint("xmd") {
+          display: none;
+          // height: 100%;
+          // top: 0;
+          // left: 0;
+        }
+
+        height: 100%;
+
+        &-slide {
+          display: block;
+          width: 100%;
+          height: 100%;
+          position: relative;
+          height: 100%;
+
+          border-radius: 30px;
+          @include breakpoint("xmd") {
+            border-radius: 0;
+          }
+
+          &-img {
+            width: 100%;
+            object-fit: contain;
+            width: 100%;
+
+            height: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            display: block;
+            transition: all 0.5s ease-in-out;
+            border-radius: 30px;
+            overflow: hidden;
+
+            @include breakpoint("xmd") {
+              border-radius: 0;
+            }
+          }
+
+          // &::before {
+          //   display: none;
+          //   top: 0;
+          //   left: 0;
+          //   content: "";
+
+          //   height: 100%;
+          //   width: 100%;
+          //   // background: rgb(65 25 100 / 56%);
+          //   // background: #1b021c;
+
+          //   @include breakpoint("xmd") {
+          //     display: block;
+          //   }
+          // }
+        }
+      }
+    }
+
+    &-bottom {
+      width: 100%;
+      text-align: center;
+
+      p {
+        font-size: 20px;
+        font-weight: 500;
+
+        @include breakpoint("xmd") {
+          font-size: 16px;
+          position: relative;
+          z-index: 100;
+
+          color: white;
+        }
+      }
+
+      @include breakpoint("xmd") {
+        width: 100%;
+      }
+    }
+  }
+}
